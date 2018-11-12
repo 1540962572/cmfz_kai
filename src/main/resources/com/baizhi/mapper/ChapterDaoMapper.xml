@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.ChapterDao">
+    <select id="queryAll" resultType="com.baizhi.entity.Chapter">
+      SELECT `id`, `title`, `size`, `duration`, `downPath`, `uploadTime`
+      FROM cmfz_chapter
+    </select>
+    <insert id="insert">
+        INSERT INTO `chimingfazhou`.`cmfz_chapter`
+        (`id`, `title`, `size`, `duration`, `downPath`, `uploadTime`, `album_id`)
+         VALUES
+        (#{id}, #{title}, #{size}, #{duration}, #{downPath}, #{uploadTime}, #{album_id})
+    </insert>
+</mapper>

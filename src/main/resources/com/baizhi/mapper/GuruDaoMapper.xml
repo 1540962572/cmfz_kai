@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.GuruDao">
+    <resultMap id="guruAll" type="com.baizhi.entity.Guru">
+        <id column="id" property="id"/>
+        <result column="name" property="name"/>
+        <result column="headPic" property="headPic"/>
+        <result column="sex" property="sex"/>
+        <result column="stauts" property="stauts"/>
+        <collection property="children" ofType="com.baizhi.entity.Article">
+            <id column="zid" property="id"/>
+            <result column="ztitle" property="title"/>
+            <result column="imgPath" property="imgPath"/>
+            <result column="content" property="content"/>
+            <result column="publishDate" property="publishDate"/>
+            <result column="guru_id" property="guru_id"/>
+        </collection>
+    </resultMap>
+    <select id="queryAll" resultMap="guruAll">
+      SELECT S.id, S.name, S.headPic, S.sex, S.stauts,
+      Z.id zid, Z.title ztitle, Z.imgPath, Z.content,
+      Z.publishDate, Z.guru_id
+      FROM cmfz_guru S LEFT JOIN cmfz_article Z
+      ON Z.guru_id=S.id
+    </select>
+    <insert id="insert" parameterType="com.baizhi.entity.Guru">
+        INSERT INTO `chimingfazhou`.`cmfz_guru`
+        (`id`, `name`, `headPic`, `sex`, `stauts`) VALUES
+        (#{id}, #{name}, #{headPic}, #{sex}, #{stauts})
+    </insert>
+</mapper>

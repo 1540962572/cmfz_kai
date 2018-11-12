@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AlbumDao">
+    <resultMap id="albumAll" type="com.baizhi.entity.Album">
+        <id column="id" property="id"/>
+        <result column="title" property="title"/>
+        <result column="publishDate" property="publishDate"/>
+        <result column="count" property="count"/>
+        <result column="coverImg" property="coverImg"/>
+        <result column="score" property="score"/>
+        <result column="author" property="author"/>
+        <result column="broadCast" property="broadCast"/>
+        <result column="brief" property="brief"/>
+        <collection property="children" ofType="com.baizhi.entity.Chapter">
+            <id column="cid" property="id"/>
+            <result column="ctitle" property="title"/>
+            <result column="size" property="size"/>
+            <result column="duration" property="duration"/>
+            <result column="downPath" property="downPath"/>
+            <result column="uploadTime" property="uploadTime"/>
+            <result column="album_id" property="album_id"/>
+        </collection>
+    </resultMap>
+    <select id="queryByPage" resultMap="albumAll">
+      SELECT a.id, a.title, a.publishDate, a.count, a.coverImg,
+       a.score, a.author, a.broadCast, a.brief,c.id cid, c.title ctitle, c.size,
+        c.duration, c.downPath, c.uploadTime, c.album_id
+      FROM cmfz_album a LEFT JOIN cmfz_chapter c
+      ON a.id=c.album_id
+      limit #{start},#{rows}
+    </select>
+    <select id="queryAll" resultType="com.baizhi.entity.Album">
+        SELECT `id`, `title`, `publishDate`, `count`, `coverImg`, `score`,
+        `author`, `broadCast`, `brief`
+        FROM cmfz_album
+    </select>
+    <insert id="insert">
+        INSERT INTO `chimingfazhou`.`cmfz_album`
+        (`id`, `title`, `publishDate`, `count`, `coverImg`,
+        `score`, `author`, `broadCast`, `brief`)
+        VALUES (#{id}, #{title}, #{publishDate}, #{count},
+        #{coverImg}, #{score}, #{author}, #{broadCast}, #{brief})
+    </insert>
+    <select id="queryTotal" resultType="Long">
+        SELECT COUNT(id) FROM cmfz_album
+    </select>
+    <select id="queryId" resultMap="albumAll">
+      SELECT a.id, a.title, a.publishDate, a.count, a.coverImg,
+       a.score, a.author, a.broadCast, a.brief,c.id cid, c.title ctitle, c.size,
+        c.duration, c.downPath, c.uploadTime, c.album_id
+      FROM cmfz_album a LEFT JOIN cmfz_chapter c
+      ON a.id=c.album_id
+      WHERE a.id=#{id}
+    </select>
+</mapper>

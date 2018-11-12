@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.UserDao">
+    <insert id="insert">
+        INSERT INTO `chimingfazhou`.`cmfz_user`
+        (`id`, `phoneNum`, `username`, `password`, `salt`,
+        `province`, `city`, `nickName`, `gender`, `sign`,
+        `headPic`, `status`, `date`)
+        VALUES (#{id}, #{phoneNum}, #{username},#{password}, #{salt},
+         #{province}, #{city}, #{nickName}, #{gender}, #{sign},
+          #{headPic}, #{status}, #{date});
+    </insert>
+    <select id="queryLogin" resultType="com.baizhi.entity.User">
+        SELECT `id`, `phoneNum`, `username`, `password`, `salt`,
+        `province`, `city`, `nickName`, `gender`, `sign`,
+        `headPic`, `status`, `date`
+        FROM cmfz_user
+        WHERE phoneNum=#{phoneNum} and password=#{password}
+    </select>
+    <select id="querySalt" resultType="com.baizhi.entity.User">
+        SELECT phoneNum,salt FROM cmfz_user
+        WHERE phoneNum=#{phoneNum}
+    </select>
+    <update id="update">
+        UPDATE `chimingfazhou`.`cmfz_user` SET
+        `phoneNum`=#{phoneNum}, `username`=#{username}, `password`=#{password},
+       `salt`=#{salt}, `province`=#{province}, `city`=#{city}, `nickName`=#{nickName},
+        `gender`=#{gender}, `sign`=#{sign}, `headPic`=#{headPic}, `status`=#{status}
+        WHERE (`id`=#{id})
+    </update>
+</mapper>

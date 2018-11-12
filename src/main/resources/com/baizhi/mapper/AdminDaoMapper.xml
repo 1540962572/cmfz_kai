@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.AdminDao">
+    <insert id="insert" parameterType="com.baizhi.entity.Admin">
+        INSERT INTO `chimingfazhou`.`cmfz_admin`
+        (`id`, `username`, `password`, `authority`)
+        VALUES (#{id}, #{username}, #{password}, #{authority})
+    </insert>
+    <select id="queryLogin" parameterType="com.baizhi.entity.Admin" resultType="com.baizhi.entity.Admin">
+        SELECT id,username,password,authority FROM cmfz_admin
+        WHERE username=#{username} and password=#{password}
+    </select>
+    <select id="queryId" resultType="com.baizhi.entity.Admin">
+        SELECT id,username,password,authority FROM cmfz_admin
+        WHERE id=#{id}
+    </select>
+    <update id="update">
+        UPDATE `chimingfazhou`.`cmfz_admin` SET
+         `password`=#{password}
+          WHERE (`id`=#{id})
+
+    </update>
+</mapper>

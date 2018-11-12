@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.BannerDao">
+
+    <select id="queryByPage" resultType="com.baizhi.entity.Banner">
+      SELECT `id`, `title`, `imgPath`, `desc`, `status`, `date`
+      FROM cmfz_banner limit #{start},#{rows}
+    </select>
+    <select id="queryTotal" resultType="Long">
+        SELECT COUNT(id) FROM cmfz_banner
+    </select>
+    <select id="queryLogin" resultType="com.baizhi.entity.Banner">
+        SELECT `id`, `title`, `imgPath`, `desc`, `status`, `date`
+        FROM cmfz_banner WHERE id=#{id}
+    </select>
+    <insert id="insert" parameterType="com.baizhi.entity.Banner">
+        INSERT INTO `chimingfazhou`.`cmfz_banner`
+        (`id`, `title`, `imgPath`, `desc`, `status`, `date`)
+         VALUES (#{id}, #{title}, #{imgPath}, #{desc}, #{status}, #{date})
+    </insert>
+    <update id="update" parameterType="com.baizhi.entity.Banner">
+        UPDATE `chimingfazhou`.`cmfz_banner` SET `title`=#{title},
+         `imgPath`=#{imgPath}, `desc`=#{desc}, `status`=#{status}
+          WHERE (`id`=#{id})
+    </update>
+    <update id="updatetwo" parameterType="com.baizhi.entity.Banner">
+        UPDATE `chimingfazhou`.`cmfz_banner` SET `title`=#{title},
+          `desc`=#{desc}, `status`=#{status}
+          WHERE (`id`=#{id})
+    </update>
+    <delete id="delete">
+        DELETE FROM cmfz_banner WHERE id=#{id}
+    </delete>
+</mapper>

@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.baizhi.dao.CourseDao">
+    <select id="queryAll" resultType="com.baizhi.entity.Course">
+      SELECT `id`, `title`, `marking`, `creatTime`, `stauts`
+      FROM cmfz_course
+      WHERE stauts=#{stauts}
+    </select>
+    <insert id="insert" parameterType="com.baizhi.entity.Course">
+        INSERT INTO `chimingfazhou`.`cmfz_course` (`id`, `title`, `marking`, `creatTime`, `stauts`)
+        VALUES (#{id}, #{title}, #{marking}, #{creatTime}, #{stauts})
+    </insert>
+    <select id="queryLogin" resultType="com.baizhi.entity.Course">
+      SELECT `id`, `title`, `marking`, `creatTime`, `stauts`
+      FROM cmfz_course
+      WHERE id=#{id}
+    </select>
+    <update id="update">
+      UPDATE `chimingfazhou`.`cmfz_course` SET
+      `title`=#{title}, `marking`=#{marking}
+      WHERE (`id`=#{id})
+    </update>
+    <delete id="delete">
+        DELETE FROM cmfz_course WHERE id=#{id}
+    </delete>
+</mapper>
