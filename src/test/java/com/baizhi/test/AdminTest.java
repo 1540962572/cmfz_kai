@@ -25,5 +25,6 @@ public class AdminTest {
             System.out.println("密码错误");
         }
         System.out.println(byId);
+        System.out.println("哈哈哈。我会使用git");
     }
 }
